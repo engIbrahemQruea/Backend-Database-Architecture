@@ -1,0 +1,20 @@
+
+
+---   Problem 9: Get all vehicles that runs with GAS
+
+--- 1
+select v.* ,ft.FuelTypeName
+from VehicleDetails v
+join FuelTypes ft
+on v.FuelTypeID=ft.FuelTypeID
+where ft.FuelTypeName=N'GAS'
+
+--- 2
+SELECT *, FuelTypeName = 'GAS'
+FROM VehicleDetails 
+WHERE FuelTypeID = (SELECT FuelTypeID FROM FuelTypes WHERE FuelTypeName = 'GAS')
+ORDER BY ID ASC
+
+--- 3
+select * from VehicleMasterDetails
+where FuelTypeName=N'GAS'
