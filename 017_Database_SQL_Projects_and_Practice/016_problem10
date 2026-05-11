@@ -1,0 +1,30 @@
+
+
+
+----   Problem 10: Get all Makes that runs with GAS
+
+--- 1
+select distinct m.Make,ft.FuelTypeName
+from VehicleDetails v
+join Makes m
+on v.MakeID=m.MakeID
+join FuelTypes ft
+on v.FuelTypeID=ft.FuelTypeID
+where ft.FuelTypeName=N'GAS'
+order by m.Make	;
+
+--- 2
+select distinct v.Make,v.FuelTypeName from VehicleMasterDetails v
+where v.FuelTypeName=N'GAS'
+order by make;
+
+-- 3
+SELECT Make 
+FROM Makes m
+WHERE EXISTS (
+    SELECT 1 
+    FROM VehicleDetails v
+    JOIN FuelTypes ft ON v.FuelTypeID = ft.FuelTypeID
+    WHERE v.MakeID = m.MakeID AND ft.FuelTypeName = N'GAS'
+)
+ORDER BY Make;
