@@ -1,0 +1,26 @@
+----   Problem 1: Create Master View
+
+create view VehicleMasterDetails  as
+select   v.ID, v.MakeID, ma.Make,v.ModelID, m.ModelName, v.SubModelID, s.SubModelName, v.BodyID,b.BodyName,v.Vehicle_Display_Name,v.Year, v.DriveTypeID,d.DriveTypeName,v.Engine, v.Engine_CC, v.Engine_Cylinders, v.Engine_Liter_Display, v.FuelTypeID, ISNULL(f.FuelTypeName, 'Not Specified') as FuelTypeName,v.NumDoors
+
+from VehicleDetails v
+join SubModels s
+on s.SubModelID = v.SubModelID
+
+join MakeModels m
+on s.ModelID = m.ModelID
+
+join Makes ma
+on m.MakeID = ma.MakeID
+
+left join Bodies b
+on v.BodyID = b.BodyID
+
+left join DriveTypes d
+on d.DriveTypeID = v.DriveTypeID
+
+left join FuelTypes f
+on f.FuelTypeID = v.FuelTypeID;
+
+
+select count(*) from VehicleMasterDetails
