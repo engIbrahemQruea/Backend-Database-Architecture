@@ -197,4 +197,25 @@ class ContactDatabaseService {
       print('خطأ: ${e.toString()}');
     }
   }
+
+  Future<String?> getFirstName({required int contactId}) async {
+    try {
+      final db = await getDatabase;
+
+      final result = await db.query(
+        'Contacts',
+        columns: ['FirstName'],
+        where: 'ContactID = ?',
+        whereArgs: [contactId],
+        limit: 1,
+      );
+
+      if (result.isEmpty) return null;
+
+      return result.first['FirstName'] as String?;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }
