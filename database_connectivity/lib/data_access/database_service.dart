@@ -129,4 +129,72 @@ class ContactDatabaseService {
       print('Error fetching contacts: ${e.toString()}');
     }
   }
+
+  Future<void> searchContactsByStartingLetter({
+    required String searchLetter,
+  }) async {
+    try {
+      final db = await getDatabase;
+
+      // 1. الاستعلام يستخدم ? كـ Placeholder
+      const String query = 'SELECT * FROM Contacts WHERE FirstName LIKE ?';
+
+      final List<Map<String, dynamic>> results = await db.rawQuery(query, [
+        '$searchLetter%',
+      ]);
+
+      if (results.isEmpty) {
+        print("لا توجد أسماء تبدأ بحرف: $searchLetter");
+        return;
+      }
+
+      for (var row in results) {
+        print('Name: ${row['FirstName']} ${row['LastName']}');
+      }
+    } catch (e) {
+      print('خطأ: ${e.toString()}');
+    }
+  }
+
+  Future<void> searchContactsStartWith({required String searchLetter}) async {
+    try {
+      final db = await getDatabase;
+
+      const String query = 'SELECT * FROM Contacts WHERE FirstName LIKE ?';
+
+      final List<Map<String, dynamic>> results = await db.rawQuery(query, [
+        '$searchLetter%',
+      ]);
+      if (results.isEmpty) {
+        print("لا توجد أسماء تبدأ بحرف: $searchLetter");
+        return;
+      }
+      for (var row in results) {
+        print('Name: ${row['FirstName']} ${row['LastName']}');
+      }
+    } catch (e) {
+      print('خطأ: ${e.toString()}');
+    }
+  }
+
+  Future<void> searchContactsEndWith({required String searchLetter}) async {
+    try {
+      final db = await getDatabase;
+
+      const String query = 'SELECT * FROM Contacts WHERE FirstName LIKE ?';
+
+      final List<Map<String, dynamic>> results = await db.rawQuery(query, [
+        '%$searchLetter',
+      ]);
+      if (results.isEmpty) {
+        print("لا توجد أسماء تنتهي بحرف: $searchLetter");
+        return;
+      }
+      for (var row in results) {
+        print('Name: ${row['FirstName']} ${row['LastName']}');
+      }
+    } catch (e) {
+      print('خطأ: ${e.toString()}');
+    }
+  }
 }
