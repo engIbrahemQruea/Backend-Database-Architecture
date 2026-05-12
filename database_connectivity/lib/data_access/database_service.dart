@@ -1,4 +1,5 @@
 import 'package:database_connectivity/data_access/contact_db.dart';
+import 'package:database_connectivity/models/contact_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ContactDatabaseService {
@@ -215,6 +216,26 @@ class ContactDatabaseService {
       return result.first['FirstName'] as String?;
     } catch (e) {
       print(e);
+      return null;
+    }
+  }
+
+  Future<ContactModel?> findContactById({required int contactId}) async {
+    try {
+      final db = await getDatabase;
+
+      final results = await db.query(
+        'Contacts',
+        where: 'ContactID = ?',
+        whereArgs: [contactId],
+        limit: 1,
+      );
+
+      if (results.isEmpty) return null;
+
+      return ContactModel.fromMap(results.first);
+    } catch (e) {
+      print('Database Error: $e');
       return null;
     }
   }
