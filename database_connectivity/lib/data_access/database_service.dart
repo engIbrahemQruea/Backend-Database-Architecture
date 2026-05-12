@@ -70,4 +70,63 @@ class ContactDatabaseService {
       print('Error fetching contacts: ${e.toString()}');
     }
   }
+
+  Future<void> printAllContactsWithFirstName(String firstName) async {
+    try {
+      final db = await getDatabase;
+
+      final List<Map<String, dynamic>> results = await db.query(
+        'Contacts',
+        where: 'LOWER(FirstName) = LOWER(?)',
+        whereArgs: [firstName],
+      );
+      if (results.isEmpty) {
+        print("No contacts found.");
+        return;
+      }
+      for (var row in results) {
+        print('Contact ID: ${row['ContactID']}');
+        print('First Name: ${row['FirstName']}');
+        print('Last Name: ${row['LastName']}');
+        print('Email: ${row['Email']}');
+        print('Phone: ${row['Phone']}');
+        print('Address: ${row['Address']}');
+        print('Country ID: ${row['CountryID']}');
+        print('-----------------------------');
+      }
+    } catch (e) {
+      print('Error fetching contacts: ${e.toString()}');
+    }
+  }
+
+  Future<void> printAllContactsWithFirstNameAndCountry(
+    String firstName,
+    int countryId,
+  ) async {
+    try {
+      final db = await getDatabase;
+
+      final List<Map<String, dynamic>> results = await db.query(
+        'Contacts',
+        where: 'LOWER(FirstName) = LOWER(?) AND CountryID = ?',
+        whereArgs: [firstName, countryId],
+      );
+      if (results.isEmpty) {
+        print("No contacts found.");
+        return;
+      }
+      for (var row in results) {
+        print('Contact ID: ${row['ContactID']}');
+        print('First Name: ${row['FirstName']}');
+        print('Last Name: ${row['LastName']}');
+        print('Email: ${row['Email']}');
+        print('Phone: ${row['Phone']}');
+        print('Address: ${row['Address']}');
+        print('Country ID: ${row['CountryID']}');
+        print('-----------------------------');
+      }
+    } catch (e) {
+      print('Error fetching contacts: ${e.toString()}');
+    }
+  }
 }
