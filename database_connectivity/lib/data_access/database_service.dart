@@ -269,4 +269,33 @@ class ContactDatabaseService {
     }
     return true;
   }
+
+  Future<int?> addNewContactAndGetID(ContactModel contact) async {
+    try {
+      final db = await getDatabase;
+      final results = ContactModel.toMap(contact);
+
+      int id = await db.insert('Contacts', {
+        'FirstName': results.firstName,
+        'LastName': results.lastName,
+        'Email': results.email,
+        'Phone': results.phone,
+        'Address': results.address,
+        'DateOfBirth': results.dateOfBirth,
+        'CountryID': results.countryId,
+        'ImagePath': results.imagePath,
+      });
+
+      if (id > 0) {
+        print("✅ Record inserted successfully with ID: $id");
+        return id;
+      } else {
+        print("⚠️ Record insertion failed.");
+        return null;
+      }
+    } catch (e) {
+      print("❌ Error: ${e.toString()}");
+      return null;
+    }
+  }
 }
