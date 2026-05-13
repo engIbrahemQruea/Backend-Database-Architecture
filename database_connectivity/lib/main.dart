@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:database_connectivity/app.dart';
 import 'package:database_connectivity/data_access/database_service.dart';
+import 'package:database_connectivity/presentation_layer/presentation_layer.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -19,7 +19,8 @@ void main() async {
 
   await ContactDatabaseService().getDatabase;
   print('Database Initialized');
-  runApp(const App());
+  //runApp(const App());
+  runApp(const PresentationLayer());
 }
 
 // Future<bool> deleteContactsWithInStatment(String countrysID) async {
