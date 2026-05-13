@@ -332,4 +332,27 @@ class ContactDatabaseService {
       return false;
     }
   }
+
+  Future<bool> deleteContact(int id) async {
+    try {
+      final db = await getDatabase;
+
+      int count = await db.delete(
+        'Contacts',
+        where: 'ContactID = ?',
+        whereArgs: [id],
+      );
+
+      if (count > 0) {
+        print("✅ Record deleted successfully.");
+        return true;
+      } else {
+        print("⚠️ Record deletion failed. No matching record found.");
+        return false;
+      }
+    } catch (e) {
+      print("❌ Error: ${e.toString()}");
+      return false;
+    }
+  }
 }
