@@ -298,4 +298,38 @@ class ContactDatabaseService {
       return null;
     }
   }
+
+  Future<bool> updateContact(ContactModel updateInfo, int id) async {
+    try {
+      final db = await getDatabase;
+      final results = ContactModel.toMap(updateInfo);
+
+      int count = await db.update(
+        'Contacts',
+        {
+          'FirstName': results.firstName,
+          'LastName': results.lastName,
+          'Email': results.email,
+          'Phone': results.phone,
+          'Address': results.address,
+          'DateOfBirth': results.dateOfBirth,
+          'CountryID': results.countryId,
+          'ImagePath': results.imagePath,
+        },
+        where: 'ContactID = ?',
+        whereArgs: [id],
+      );
+
+      if (count > 0) {
+        print("✅ Record updated successfully.");
+        return true;
+      } else {
+        print("⚠️ Record update failed. No matching record found.");
+        return false;
+      }
+    } catch (e) {
+      print("❌ Error: ${e.toString()}");
+      return false;
+    }
+  }
 }
