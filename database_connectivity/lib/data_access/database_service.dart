@@ -355,4 +355,29 @@ class ContactDatabaseService {
       return false;
     }
   }
+
+  Future<bool> deleteContactsWithInStatement(List<int> countryIds) async {
+    try {
+      final db = await getDatabase;
+
+      String placeholders = List.filled(countryIds.length, '?').join(', ');
+
+      int rowsAffected = await db.delete(
+        'Contacts',
+        where: 'CountryID IN ($placeholders)',
+        whereArgs: countryIds,
+      );
+
+      if (rowsAffected > 0) {
+        print("✅ Records deleted successfully. Rows affected: $rowsAffected");
+        return true;
+      } else {
+        print("⚠️ No records found to delete.");
+        return false;
+      }
+    } catch (e) {
+      print("❌ Error: ${e.toString()}");
+      return false;
+    }
+  }
 }
