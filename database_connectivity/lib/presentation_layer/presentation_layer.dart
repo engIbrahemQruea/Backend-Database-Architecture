@@ -1,3 +1,4 @@
+import 'package:database_connectivity/presentation_layer/functions_tests.dart';
 import 'package:flutter/material.dart';
 
 class PresentationLayer extends StatelessWidget {
@@ -25,10 +26,10 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         children: [
           TextButton(
-            onPressed: () async {
-              //  await ContactDatabaseService().printAllContacts();
+            onPressed: () {
+              FunctionsTests.testFindByID(contactID: 2);
             },
-            child: Text('GetAllContact'),
+            child: Text('test Find Contact'),
           ),
         ],
       ),
