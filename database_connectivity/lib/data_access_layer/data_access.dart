@@ -60,13 +60,32 @@ class DataAccessModel {
     return null;
   }
 
-  static Future<int>addNewContact(Map<String, dynamic> contactData) async {
+  static Future<int> addNewContact(Map<String, dynamic> contactData) async {
     try {
       final db = await getDatabase;
       return await db.insert('Contacts', contactData);
     } catch (e) {
       print('Error adding new contact: $e');
       return -1; // Return -1 to indicate failure
+    }
+  }
+
+  static Future<int> updateContact(
+    int id,
+    Map<String, dynamic> contactData,
+  ) async {
+    try {
+      final db = await getDatabase;
+
+      return await db.update(
+        'Contacts',
+        contactData,
+        where: 'ContactID = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print('Error updating contact: $e');
+      return 0;
     }
   }
 }

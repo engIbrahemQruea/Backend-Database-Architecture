@@ -37,6 +37,12 @@ class MyHomePage extends StatelessWidget {
             },
             child: Text('test Add New Contact'),
           ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testUpdateContact(contactID: 90);
+            },
+            child: Text('test Update Contact'),
+          ),
         ],
       ),
     );

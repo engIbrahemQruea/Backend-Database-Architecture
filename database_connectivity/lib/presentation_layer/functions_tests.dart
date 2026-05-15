@@ -31,4 +31,24 @@ class FunctionsTests {
       print("❌ Failed to Add Contact.");
     }
   }
+
+  static void testUpdateContact({required int contactID}) async {
+    final contact = await BusinessLogicModel.find(contactID: contactID);
+    if (contact != null) {
+      print('Contact Found: ${contact.firstName} ${contact.lastName}\n');
+
+      contact.firstName = 'Moeen';
+      contact.phone = '0987654321';
+      contact.address = '456 Another St';
+
+      if (await contact.save()) {
+        print("✅ Contact Updated Successfully.");
+        print("Current Mode: ${contact.mode}"); // سيظل Update
+      } else {
+        print("❌ Failed to Update Contact.");
+      }
+    } else {
+      print('Contact not found');
+    }
+  }
 }

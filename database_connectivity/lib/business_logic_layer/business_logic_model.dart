@@ -77,6 +77,20 @@ class BusinessLogicModel {
     };
   }
 
+  Map<String, dynamic> toUpdateMap() {
+    return {
+      'ContactID': contactID,
+      'FirstName': firstName,
+      'LastName': lastName,
+      'Email': email,
+      'Phone': phone,
+      'Address': address,
+      'DateOfBirth': dateOfBirth,
+      'CountryID': countryId,
+      'imagePath': imagePath,
+    };
+  }
+
   static Future<BusinessLogicModel?> find({required int contactID}) async {
     final data = await DataAccessModel.getInfoByID(id: contactID);
     if (data != null) {
@@ -100,8 +114,13 @@ class BusinessLogicModel {
           return false;
         }
       case EnMode.update:
-        // return _updateContact();
-        return false;
+        return await _updateContact();
     }
+  }
+
+  Future<bool> _updateContact() async {
+    int rowsAffected = await DataAccessModel.updateContact(contactID!, toMap());
+
+    return rowsAffected > 0;
   }
 }
