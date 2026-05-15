@@ -27,7 +27,7 @@ class MyHomePage extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              FunctionsTests.testFindByID(contactID: 2);
+              FunctionsTests.testFindByID(contactID: 9);
             },
             child: Text('test Find Contact'),
           ),
@@ -42,6 +42,12 @@ class MyHomePage extends StatelessWidget {
               FunctionsTests.testUpdateContact(contactID: 90);
             },
             child: Text('test Update Contact'),
+          ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testDeleteContact(contactID: 9);
+            },
+            child: Text('test Delete Contact'),
           ),
         ],
       ),

@@ -88,4 +88,18 @@ class DataAccessModel {
       return 0;
     }
   }
+
+  static Future<int> deleteContact(int id) async {
+    try {
+      final db = await getDatabase;
+      return await db.delete(
+        'Contacts',
+        where: 'ContactID = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print('Error deleting contact: $e');
+      return 0;
+    }
+  }
 }

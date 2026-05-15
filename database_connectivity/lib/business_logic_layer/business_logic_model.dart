@@ -123,4 +123,9 @@ class BusinessLogicModel {
 
     return rowsAffected > 0;
   }
+
+  static Future<bool> deleteContact(int contactID) async {
+    int rowsAffected = await DataAccessModel.deleteContact(contactID);
+    return rowsAffected > 0;
+  }
 }
