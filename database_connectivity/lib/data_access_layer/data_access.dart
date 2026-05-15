@@ -59,4 +59,14 @@ class DataAccessModel {
     }
     return null;
   }
+
+  static Future<int>addNewContact(Map<String, dynamic> contactData) async {
+    try {
+      final db = await getDatabase;
+      return await db.insert('Contacts', contactData);
+    } catch (e) {
+      print('Error adding new contact: $e');
+      return -1; // Return -1 to indicate failure
+    }
+  }
 }

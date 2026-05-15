@@ -66,14 +66,13 @@ class BusinessLogicModel {
   // }
   Map<String, dynamic> toMap() {
     return {
-      'contactID': contactID,
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'phone': phone,
-      'address': address,
-      'dateOfBirth': dateOfBirth,
-      'countryId': countryId,
+      'FirstName': firstName,
+      'LastName': lastName,
+      'Email': email,
+      'Phone': phone,
+      'Address': address,
+      'DateOfBirth': dateOfBirth,
+      'CountryID': countryId,
       'imagePath': imagePath,
     };
   }
@@ -84,5 +83,25 @@ class BusinessLogicModel {
       return BusinessLogicModel.fromMap(data);
     }
     return null;
+  }
+
+  Future<bool> _addNewContact() async {
+    contactID = await DataAccessModel.addNewContact(toMap());
+    return contactID! >= 0;
+  }
+
+  Future<bool> save() async {
+    switch (mode) {
+      case EnMode.addNew:
+        if (await _addNewContact()) {
+          mode = EnMode.update;
+          return true;
+        } else {
+          return false;
+        }
+      case EnMode.update:
+        // return _updateContact();
+        return false;
+    }
   }
 }
