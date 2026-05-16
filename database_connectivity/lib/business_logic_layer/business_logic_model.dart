@@ -128,4 +128,9 @@ class BusinessLogicModel {
     int rowsAffected = await DataAccessModel.deleteContact(contactID);
     return rowsAffected > 0;
   }
+
+  static Future<List<BusinessLogicModel>> getAllContacts() async {
+    final dataList = await DataAccessModel.getAllContacts();
+    return dataList.map((data) => BusinessLogicModel.fromMap(data)).toList();
+  }
 }

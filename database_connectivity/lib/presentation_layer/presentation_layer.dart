@@ -49,6 +49,12 @@ class MyHomePage extends StatelessWidget {
             },
             child: Text('test Delete Contact'),
           ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testGetAllContacts();
+            },
+            child: Text('test Get All Contacts'),
+          ),
         ],
       ),
     );

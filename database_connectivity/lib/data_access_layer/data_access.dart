@@ -102,4 +102,14 @@ class DataAccessModel {
       return 0;
     }
   }
+
+  static Future<List<Map<String, dynamic>>> getAllContacts() async {
+    try {
+      final db = await getDatabase;
+      return await db.query('Contacts');
+    } catch (e) {
+      print('Error fetching all contacts: $e');
+      return [];
+    }
+  }
 }

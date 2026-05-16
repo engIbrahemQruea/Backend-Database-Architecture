@@ -59,4 +59,19 @@ class FunctionsTests {
       print("❌ Failed to Delete Contact.");
     }
   }
+
+  static void testGetAllContacts() async {
+    List<BusinessLogicModel> contacts =
+        await BusinessLogicModel.getAllContacts();
+
+    if (contacts.isEmpty) {
+      print('No contacts found.');
+      return;
+    }
+
+    print('Total Contacts: ${contacts.length}\n');
+    for (var contact in contacts) {
+      print('${contact.firstName} ${contact.lastName} - ${contact.email}');
+    }
+  }
 }
