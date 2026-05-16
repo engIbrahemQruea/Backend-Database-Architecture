@@ -53,10 +53,14 @@ class FunctionsTests {
   }
 
   static void testDeleteContact({required int contactID}) async {
-    if (await BusinessLogicModel.deleteContact(contactID)) {
-      print("✅ Contact Deleted Successfully.");
+    if (await BusinessLogicModel.isContactExists(contactID)) {
+      if (await BusinessLogicModel.deleteContact(contactID)) {
+        print("✅ Contact Deleted Successfully.");
+      } else {
+        print("❌ Failed to Delete Contact.");
+      }
     } else {
-      print("❌ Failed to Delete Contact.");
+      print("❌ Contact With ID $contactID does not exist.");
     }
   }
 
