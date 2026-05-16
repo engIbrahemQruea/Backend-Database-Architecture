@@ -133,4 +133,8 @@ class BusinessLogicModel {
     final dataList = await DataAccessModel.getAllContacts();
     return dataList.map((data) => BusinessLogicModel.fromMap(data)).toList();
   }
+
+  static Future<bool> isContactExists(int contactID) async {
+    return await DataAccessModel.isContactExists(contactID);
+  }
 }

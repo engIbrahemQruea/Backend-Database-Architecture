@@ -71,7 +71,17 @@ class FunctionsTests {
 
     print('Total Contacts: ${contacts.length}\n');
     for (var contact in contacts) {
-      print('${contact.firstName} ${contact.lastName} - ${contact.email}');
+      print(
+        '${contact.contactID} ${contact.firstName} ${contact.lastName} - ${contact.email}',
+      );
+    }
+  }
+
+  static void testIsContactExists({required int contactID}) async {
+    if (await BusinessLogicModel.isContactExists(contactID)) {
+      print('Contact with ID $contactID exists.');
+    } else {
+      print('Contact with ID $contactID does not exist.');
     }
   }
 }

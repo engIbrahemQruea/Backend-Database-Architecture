@@ -55,6 +55,12 @@ class MyHomePage extends StatelessWidget {
             },
             child: Text('test Get All Contacts'),
           ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testIsContactExists(contactID: 8);
+            },
+            child: Text('test Check Contact Exists'),
+          ),
         ],
       ),
     );

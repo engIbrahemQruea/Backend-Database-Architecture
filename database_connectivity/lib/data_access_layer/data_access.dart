@@ -112,4 +112,21 @@ class DataAccessModel {
       return [];
     }
   }
+
+  static Future<bool> isContactExists(int id) async {
+    try {
+      final db = await getDatabase;
+      List<Map<String, dynamic>> result = await db.query(
+        'Contacts',
+        columns: ['ContactID'],
+        where: 'ContactID = ?',
+        whereArgs: [id],
+        limit: 1,
+      );
+      return result.isNotEmpty;
+    } catch (e) {
+      print('Error checking if contact exists: $e');
+      return false;
+    }
+  }
 }
