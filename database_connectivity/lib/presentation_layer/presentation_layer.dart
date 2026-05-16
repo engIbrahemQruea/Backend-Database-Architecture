@@ -61,6 +61,43 @@ class MyHomePage extends StatelessWidget {
             },
             child: Text('test Check Contact Exists'),
           ),
+          Text('========================'),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testFindCountryByID(countryID: 2);
+            },
+            child: Text('test Find Country By ID'),
+          ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testAddNewCountry();
+            },
+            child: Text('test Add New Country'),
+          ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testUpdateCountry(countryID: 7);
+            },
+            child: Text('test Update Country'),
+          ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testDeleteCountry(countryID: 7);
+            },
+            child: Text('test Delete Country'),
+          ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testGetAllCountries();
+            },
+            child: Text('test Get All Countries'),
+          ),
+          TextButton(
+            onPressed: () {
+              FunctionsTests.testIsCountryExists(countryID: 2);
+            },
+            child: Text('test Check Country Exists'),
+          ),
         ],
       ),
     );

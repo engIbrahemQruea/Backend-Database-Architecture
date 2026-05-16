@@ -129,4 +129,93 @@ class DataAccessModel {
       return false;
     }
   }
+
+  /// This function is used to practice on Countries Table
+  static Future<Map<String, dynamic>?> getCountryByID({required int id}) async {
+    try {
+      final db = await getDatabase;
+      List<Map<String, dynamic>> result = await db.query(
+        'Countries',
+        where: 'CountryID = ?',
+        whereArgs: [id],
+        limit: 1,
+      );
+      if (result.isNotEmpty) {
+        return result.first;
+      }
+    } catch (e) {
+      print('Error fetching country by ID: $e');
+    }
+    return null;
+  }
+
+  static Future<int> addNewCountry(Map<String, dynamic> countryData) async {
+    try {
+      final db = await getDatabase;
+      return await db.insert('Countries', countryData);
+    } catch (e) {
+      print('Error adding new country: $e');
+      return -1; // Return -1 to indicate failure
+    }
+  }
+
+  static Future<int> updateCountry(
+    int id,
+    Map<String, dynamic> countryData,
+  ) async {
+    try {
+      final db = await getDatabase;
+
+      return await db.update(
+        'Countries',
+        countryData,
+        where: 'CountryID = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print('Error updating country: $e');
+      return 0;
+    }
+  }
+
+  static Future<int> deleteCountry(int id) async {
+    try {
+      final db = await getDatabase;
+      return await db.delete(
+        'Countries',
+        where: 'CountryID = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print('Error deleting country: $e');
+      return 0;
+    }
+  }
+
+  static Future<List<Map<String, dynamic>>> getAllCountries() async {
+    try {
+      final db = await getDatabase;
+      return await db.query('Countries');
+    } catch (e) {
+      print('Error fetching all countries: $e');
+      return [];
+    }
+  }
+
+  static Future<bool> isCountryExists(int id) async {
+    try {
+      final db = await getDatabase;
+      List<Map<String, dynamic>> result = await db.query(
+        'Countries',
+        columns: ['CountryID'],
+        where: 'CountryID = ?',
+        whereArgs: [id],
+        limit: 1,
+      );
+      return result.isNotEmpty;
+    } catch (e) {
+      print('Error checking if country exists: $e');
+      return false;
+    }
+  }
 }
